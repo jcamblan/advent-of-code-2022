@@ -8,6 +8,10 @@ class Day01 < Puzzle
     calorie_packages.max_by(&:sum).sum
   end
 
+  def part2
+    calorie_packages.sort_by(&:sum)[-3..].sum(&:sum)
+  end
+
   private
 
   def calorie_packages
