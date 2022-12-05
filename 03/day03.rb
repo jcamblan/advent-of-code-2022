@@ -9,9 +9,13 @@ class Day03 < Puzzle
   def part1
     input.lines(chomp: true)
          .map { _1.chars.each_slice(_1.size / 2).to_a }
-         .map { (_1 & _2).first }
-         .map { priority(_1) }
-         .sum
+         .sum { priority((_1 & _2).first) }
+  end
+
+  def part2
+    input.lines(chomp: true)
+         .each_slice(3).to_a
+         .sum { priority((_1.chars & _2.chars & _3.chars).first) }
   end
 
   private

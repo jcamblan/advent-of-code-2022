@@ -36,7 +36,7 @@ class Day02 < Puzzle
   private
 
   def calculate_score(&block)
-    scores = input.lines(chomp: true).map(&:split).map(&block).sum
+    input.lines(chomp: true).map(&:split).sum(&block)
   end
 
   def score(elf_move, my_move)
