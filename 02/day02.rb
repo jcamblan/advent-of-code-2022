@@ -19,7 +19,7 @@ class Day02 < Puzzle
       score(MOVES[HIS.index(elf_input)], MOVES[MINE.index(my_input)])
     end
   end
-  
+
   def part2
     calculate_score do |elf_input, win_command|
       elf_move = MOVES[HIS.index(elf_input)]
@@ -28,7 +28,7 @@ class Day02 < Puzzle
                 when 'Y' then elf_move
                 when 'Z' then win_against(elf_move)
                 end
-      
+
       score(elf_move, my_move)
     end
   end
@@ -36,9 +36,7 @@ class Day02 < Puzzle
   private
 
   def calculate_score(&block)
-    scores = input.lines(chomp: true).map(&:split).map do |input1, input2|
-      yield(input1, input2)
-    end.sum
+    scores = input.lines(chomp: true).map(&:split).map(&block).sum
   end
 
   def score(elf_move, my_move)
@@ -60,10 +58,10 @@ class Day02 < Puzzle
   end
 
   def win_against(move)
-    (CASES.find { |k,v| k.include?(move) && v != move }.first - [move]).first
+    (CASES.find { |k, v| k.include?(move) && v != move }.first - [move]).first
   end
 
   def lose_against(move)
-    (CASES.find { |k,v| k.include?(move) && v == move }.first - [move]).first
+    (CASES.find { |k, v| k.include?(move) && v == move }.first - [move]).first
   end
 end
