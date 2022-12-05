@@ -6,32 +6,21 @@ require 'minitest/autorun'
 class TestDay01 < Minitest::Test
   def input
     <<-INPUT
-      1000
-      2000
-      3000
-
-      4000
-
-      5000
-      6000
-
-      7000
-      8000
-      9000
-
-      10000
+      A Y
+      B X
+      C Z
     INPUT
   end
 
   def setup
-    @resolver = Day01.new(input)
+    @resolver = Day02.new(input)
   end
 
   def test_part1_result
-    assert_equal 24_000, @resolver.part1
+    assert_equal 15, @resolver.part1
   end
 
   def test_part2_result
-    assert_equal 45_000, @resolver.part2
+    assert_equal 'TODO', @resolver.part2
   end
 end
