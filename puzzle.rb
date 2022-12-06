@@ -6,7 +6,7 @@ class Puzzle
     @input = input
   end
 
-  def part1 = 'WIP'
+  def part1 = nil
 
-  def part2 = 'WIP'
+  def part2 = nil
 end
