@@ -12,7 +12,7 @@ class Day05 < Puzzle
 
   def part2
     boxes_input, commands = input.split("\n\n").map { _1.lines(chomp: true) }
-    proceed_commands(commands, fill_boxes(boxes_input), crate_mover: 9001).flat_map(&:first).join
+    proceed_commands(commands, fill_boxes(boxes_input), crate_mover: '9001').flat_map(&:first).join
   end
 
   private

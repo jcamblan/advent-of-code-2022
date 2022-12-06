@@ -27,7 +27,6 @@ class TestDay05 < Minitest::Test
   end
 
   def test_part2_result
-    skip
     assert_equal 'MCD', @resolver.part2
   end
 end
