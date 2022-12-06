@@ -5,9 +5,7 @@ require 'minitest/autorun'
 # Ensure that solution for the day works with examples
 class TestDay06 < Minitest::Test
   def input
-    <<~INPUT
-      mjqjpqmgbljsphdztnvjfqwrcgsmlb
-    INPUT
+    "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
   end
 
   def setup
@@ -19,6 +17,6 @@ class TestDay06 < Minitest::Test
   end
 
   def test_part2_result
-    assert_equal 'TODO', @resolver.part2
+    assert_equal 19, @resolver.part2
   end
 end

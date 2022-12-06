@@ -12,8 +12,15 @@ class Day06 < Puzzle
     end
   end
 
-  private
+  def part2
+    input.chars.each.with_index do |letter, i|
+      next unless i >= 14 && input.chars[i-14..i-1].uniq.count == 14
 
+      break i
+    end
+  end
+
+  private
   def input
     @input ||= File.open('./06/input.txt').read
   end
