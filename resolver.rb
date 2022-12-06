@@ -37,7 +37,7 @@ day = ARGV.find { _1.to_i.to_s == _1 && _1 != 0 }
 if ARGV.include?('all')
   puts AdventResolver.all
 elsif day
-  puts AdventResolver.day(day.to_i)
+  puts AdventResolver.day(day.to_i - 1)
 else
   puts AdventResolver.last
 end
