@@ -24,6 +24,6 @@ class TestDay04 < Minitest::Test
   end
 
   def test_part2_result
-    assert_equal 'TODO', @resolver.part2
+    assert_equal 4, @resolver.part2
   end
 end
