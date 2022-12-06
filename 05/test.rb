@@ -28,6 +28,6 @@ class TestDay05 < Minitest::Test
 
   def test_part2_result
     skip
-    assert_equal 'TODO', @resolver.part2
+    assert_equal 'MCD', @resolver.part2
   end
 end

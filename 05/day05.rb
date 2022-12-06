@@ -10,6 +10,11 @@ class Day05 < Puzzle
     proceed_commands(commands, fill_boxes(boxes_input)).flat_map(&:first).join
   end
 
+  def part2
+    boxes_input, commands = input.split("\n\n").map { _1.lines(chomp: true) }
+    proceed_commands(commands, fill_boxes(boxes_input), crate_mover: 9001).flat_map(&:first).join
+  end
+
   private
 
   def fill_boxes(boxes_input)
@@ -19,10 +24,11 @@ class Day05 < Puzzle
     end
   end
 
-  def proceed_commands(commands, boxes)
+  def proceed_commands(commands, boxes, crate_mover: '9000')
     commands.each do |command|
       count, from, to = parse_command(command)
-      boxes[to.to_i - 1].prepend(*boxes[from.to_i - 1].shift(count.to_i).reverse)
+      moved_crates = boxes[from.to_i - 1].shift(count.to_i)
+      boxes[to.to_i - 1].prepend(*(crate_mover == '9001' ? moved_crates : moved_crates.reverse))
     end
 
     boxes
