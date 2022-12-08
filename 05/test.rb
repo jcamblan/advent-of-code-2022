@@ -4,6 +4,7 @@ require 'minitest/autorun'
 
 # Ensure that solution for the day works with examples
 class TestDay05 < Minitest::Test
+  # rubocop:disable Layout/TrailingWhitespace
   def input
     <<~INPUT
           [D]    
@@ -17,6 +18,7 @@ class TestDay05 < Minitest::Test
       move 1 from 1 to 2
     INPUT
   end
+  # rubocop:enable Layout/TrailingWhitespace
 
   def setup
     @resolver = Day05.new(input)
