@@ -20,6 +20,7 @@ class Day05 < Puzzle
   def fill_boxes(boxes_input)
     boxes_input[-1].chars.map(&:to_i).each_with_object([]).with_index do |(el, acc), index|
       next unless el.positive?
+
       acc << boxes_input[..-2].filter_map { _1.chars[index] if _1.chars[index].match?(/[A-Z]{1}/) }
     end
   end

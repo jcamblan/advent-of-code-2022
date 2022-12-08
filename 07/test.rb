@@ -6,6 +6,29 @@ require 'minitest/autorun'
 class TestDay07 < Minitest::Test
   def input
     <<~INPUT
+      $ cd /
+      $ ls
+      dir a
+      14848514 b.txt
+      8504156 c.dat
+      dir d
+      $ cd a
+      $ ls
+      dir e
+      29116 f
+      2557 g
+      62596 h.lst
+      $ cd e
+      $ ls
+      584 i
+      $ cd ..
+      $ cd ..
+      $ cd d
+      $ ls
+      4060174 j
+      8033020 d.log
+      5626152 d.ext
+      7214296 k
     INPUT
   end
 
@@ -14,8 +37,7 @@ class TestDay07 < Minitest::Test
   end
 
   def test_part1_result
-    skip
-    assert_equal 'TODO', @resolver.part1
+    assert_equal 95_437, @resolver.part1
   end
 
   def test_part2_result

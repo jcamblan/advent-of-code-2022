@@ -5,7 +5,7 @@ require 'minitest/autorun'
 # Ensure that solution for the day works with examples
 class TestDay06 < Minitest::Test
   def input
-    "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+    'mjqjpqmgbljsphdztnvjfqwrcgsmlb'
   end
 
   def setup

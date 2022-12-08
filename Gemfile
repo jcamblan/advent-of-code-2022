@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'minitest'
-gem 'pqueue', '~> 2.1'
+gem 'pqueue'
 gem 'pry'
 gem 'rubocop'
 gem 'rubocop-minitest'
