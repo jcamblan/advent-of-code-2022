@@ -6,41 +6,34 @@ require_relative '../puzzle'
 class Day07 < Puzzle
   def initialize(input = nil)
     @pwd = []
-    @filesystem = []
+    @files = []
     super
   end
 
   def part1
-    lines = input.lines(chomp: true).reject { _1.match?(/(\$ ls)|(dir *)/) }
+    input.lines(chomp: true)
+         .reject { _1.match?(/(\$ ls)|(dir *)/) }
+         .each(&method(:parse_line))
 
-    toto = lines.map(&method(:parse_line)).compact
+    dir_paths = @files.map(&:first).uniq
 
-    hash = toto.map(&:first).uniq.to_h { [_1, []] }
-
-    toto.each do |dir, file_size|
-      hash.each_key do |key|
-        hash[key] << file_size.to_i if dir.join.start_with?(key.join)
+    hash = @files.each_with_object(Hash.new(0)) do |(dir, file_size), acc|
+      dir_paths.each do |key|
+        acc[key.dup] += file_size if dir.join.start_with?(key.join)
       end
     end
 
-    tata = hash.transform_values(&:sum).select { |_k, v| v <= 100_000 }
-
-    tata.sum(&:last)
+    hash.values.sum { _1 <= 100_000 ? _1 : 0 }
   end
 
   private
 
   def parse_line(line)
     if (path = line.match(/\$ cd (.*)/)&.captures&.first)
-      if path == '..'
-        @pwd = @pwd[..-2]
-      else
-        @pwd = @pwd.dup.append(path)
-      end
-      nil
+      path == '..' ? @pwd.pop : @pwd.append(path)
     else
       length, = line.split(' ')
-      [@pwd, length]
+      @files << [@pwd.dup, length.to_i]
     end
   end
 
