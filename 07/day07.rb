@@ -18,21 +18,26 @@ class Day07 < Puzzle
     dir_paths = @files.map(&:first).uniq
 
     hash = @files.each_with_object(Hash.new(0)) do |(dir, file_size), acc|
-      dir_paths.each do |key|
-        acc[key.dup] += file_size if dir.join.start_with?(key.join)
+      dir_paths.each do |path|
+        acc[path.dup] += file_size if dir.join.start_with?(path.join)
       end
     end
 
-    hash.values.sum { _1 <= 100_000 ? _1 : 0 }
+    hash.values.select { _1 <= 100_000 }.sum
   end
 
   private
 
   def parse_line(line)
     if (path = line.match(/\$ cd (.*)/)&.captures&.first)
-      path == '..' ? @pwd.pop : @pwd.append(path)
+      if path == '..'
+        @pwd.pop
+      else
+        @pwd.append(path)
+        @files << [@pwd.dup, 0]
+      end
     else
-      length, = line.split(' ')
+      length, = line.split
       @files << [@pwd.dup, length.to_i]
     end
   end
