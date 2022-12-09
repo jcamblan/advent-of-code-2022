@@ -3,7 +3,7 @@
 require 'minitest/autorun'
 
 # Ensure that solution for the day works with examples
-class TestDay07 < Minitest::Test
+class TestDay09 < Minitest::Test
   def input
     <<~INPUT
       R 4
@@ -17,16 +17,28 @@ class TestDay07 < Minitest::Test
     INPUT
   end
 
-  def setup
-    @resolver = Day09.new(input)
+  def input2
+    <<~INPUT
+      R 5
+      U 8
+      L 8
+      D 3
+      R 17
+      D 10
+      L 25
+      U 20
+    INPUT
   end
 
   def test_part1_result
-    assert_equal 13, @resolver.part1
+    assert_equal 13, Day09.new(input).part1
   end
 
-  def test_part2_result
-    skip
-    assert_equal 'TODO', @resolver.part2
+  def test_part2a_result
+    assert_equal 1, Day09.new(input).part2
+  end
+
+  def test_part2b_result
+    assert_equal 36, Day09.new(input2).part2
   end
 end
