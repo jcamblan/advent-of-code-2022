@@ -3,36 +3,12 @@
 require_relative '../puzzle'
 require 'set'
 
-class String
-  def coordinates_in(grid)
-    @grid = grid
-    [@grid.index(row), row.index(cell)]
-  end
-
-  def row
-    case @grid
-    in [*, [*, [*, self, *], *] => r, *]
-      r
-    end
-  end
-
-  def cell
-    case row
-    in [*, [*, self, *] => c, *]
-      c
-    end
-  end
-end
-
 # Day 9: Rope Bridge
 class Day09 < Puzzle
-  H = 'H'
-  T = 'T'
-
   def part1
-    @max_width = 0
-    @max_heigth = 0
-    @grid = [[[H, T]]]
+    @h_coord = [0, 0]
+    @t_coord = [0, 0]
+
     @h_positions = Set.new
     @t_positions = Set.new
 
@@ -43,9 +19,6 @@ class Day09 < Puzzle
 
   private
 
-  def h_coord = 'H'.dup.coordinates_in(@grid)
-  def t_coord = 'T'.dup.coordinates_in(@grid)
-
   def move(direction, count)
     case direction
     when 'R' then move_right(count)
@@ -53,69 +26,64 @@ class Day09 < Puzzle
     when 'U' then move_up(count)
     when 'D' then move_down(count)
     end
-    @h_positions << h_coord
+    @h_positions << @h_coord
   end
 
   def move_up(count)
-    add_lines(count + h_coord[0] - @max_heigth) if count + h_coord[0] > @max_heigth
     count.times do
-      @grid[h_coord[0] + 1][h_coord[1]] << @grid[h_coord[0]][h_coord[1]].delete('H')
-      @h_positions << h_coord
+      x, y = @h_coord
+      @h_coord = [x, y + 1]
+      @h_positions << @h_coord
       move_t
     end
   end
 
   def move_down(count)
     count.times do
-      @grid[h_coord[0] - 1][h_coord[1]] << @grid[h_coord[0]][h_coord[1]].delete('H')
-      @h_positions << h_coord
+      x, y = @h_coord
+      @h_coord = [x, y - 1]
+      @h_positions << @h_coord
       move_t
     end
   end
 
   def move_right(count)
-    add_cells(count + h_coord[1] - @max_width) if count + h_coord[1] > @max_width
     count.times do
-      @grid[h_coord[0]][h_coord[1] + 1] << @grid[h_coord[0]][h_coord[1]].delete('H')
-      @h_positions << h_coord
+      x, y = @h_coord
+      @h_coord = [x + 1, y]
+      @h_positions << @h_coord
       move_t
     end
   end
 
   def move_left(count)
     count.times do
-      @grid[h_coord[0]][h_coord[1] - 1] << @grid[h_coord[0]][h_coord[1]].delete('H')
-      @h_positions << h_coord
+      x, y = @h_coord
+      @h_coord = [x - 1, y]
+      @h_positions << @h_coord
       move_t
     end
   end
 
   def move_t
-    y_change = h_coord[0] - t_coord[0]
-    x_change = h_coord[1] - t_coord[1]
+    xh, yh = @h_coord
+    xt, yt = @t_coord
 
-    if y_change.abs == 2 && x_change.abs == 0
-      change = y_change.negative? ? -1 : 1
-      @grid[t_coord[0] + change][t_coord[1]] << @grid[t_coord[0]][t_coord[1]].delete('T')
-    elsif y_change.abs == 0 && x_change.abs == 2
-      change = x_change.negative? ? -1 : 1
-      @grid[t_coord[0]][t_coord[1] + change] << @grid[t_coord[0]][t_coord[1]].delete('T')
-    elsif (y_change.abs == 2 && x_change.abs == 1) || y_change.abs == 1 && x_change.abs == 2
-      y_move = y_change.negative? ? -1 : 1
-      x_move = x_change.negative? ? -1 : 1
-      @grid[t_coord[0] + y_move][t_coord[1] + x_move] << @grid[t_coord[0]][t_coord[1]].delete('T')
+    x_dist = xh - xt
+    y_dist = yh - yt
+
+    x_move = x_dist.negative? ? -1 : 1
+    y_move = y_dist.negative? ? -1 : 1
+
+    if x_dist.abs == 2 && y_dist.abs.zero?
+      @t_coord = [xt + x_move, yt]
+    elsif x_dist.abs.zero? && y_dist.abs == 2
+      @t_coord = [xt, yt + y_move]
+    elsif (x_dist.abs == 2 && y_dist.abs == 1) || (x_dist.abs == 1 && y_dist.abs == 2)
+      @t_coord = [xt + x_move, yt + y_move]
     end
 
-    puts h_coord.to_s + '  ' + t_coord.to_s
-    @t_positions << t_coord
-  end
-
-  def add_lines(count)
-    count.times { @grid.append(Array.new(@grid.first.count) { [] }) }
-  end
-
-  def add_cells(count)
-    @grid.each.with_index { |_, i| count.times { @grid[i].append([]) } }
+    @t_positions << @t_coord
   end
 
   def input
