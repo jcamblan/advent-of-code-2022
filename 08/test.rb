@@ -23,7 +23,6 @@ class TestDay07 < Minitest::Test
   end
 
   def test_part2_result
-    skip
-    assert_equal 24_933_642, @resolver.part2
+    assert_equal 8, @resolver.part2
   end
 end
