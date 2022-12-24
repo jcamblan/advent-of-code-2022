@@ -156,11 +156,19 @@ class TestDay10 < Minitest::Test
   end
 
   def test_part1_result
-    assert_equal 13140, Day10.new(input).part1
+    assert_equal 13_140, Day10.new(input).part1
   end
 
   def test_part2_result
     skip
-    assert_equal 13140, Day10.new(input).part2
+    output = <<~OUTPUT
+      ##  ##  ##  ##  ##  ##  ##  ##  ##  ###{'  '}
+      ###   ###   ###   ###   ###   ###   ####{' '}
+      ####    ####    ####    ####    #####{'    '}
+      #####     #####     #####     ######{'     '}
+      ######      ######      ######      ####
+      #######       #######       ########{'     '}
+    OUTPUT
+    assert_equal output, Day10.new(input).part2_output
   end
 end
